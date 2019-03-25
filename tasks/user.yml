@@ -1,0 +1,9 @@
+---
+
+- name: add users into "docker"
+  user:
+    append: true
+    groups: docker
+    state: present
+    name: '{{ item }}'
+  with_items: '{{ docker_users or [] }}'

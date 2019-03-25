@@ -1,0 +1,32 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: anmolnagpal
+  description: Docker for Linux.
+  company: "CloudDrove, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+  galaxy_tags:
+    - system
+    - containers
+    - docker
+    - orchestration
+    - server
