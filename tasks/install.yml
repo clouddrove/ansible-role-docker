@@ -1,0 +1,37 @@
+---
+
+- name: download the latest get_docker.sh
+  get_url:
+    url: https://get.docker.com/
+    dest: /tmp/get_docker.sh
+    mode: 0755
+  register: result_change
+  changed_when: false
+
+- name: run the script
+  script: /tmp/get_docker.sh
+  changed_when: false
+
+- name: ensure pip is present
+  apt:
+    pkg: python-pip
+    state: present
+    update_cache: true
+    cache_valid_time: 5400
+  changed_when: false
+
+- name: install docker
+  pip:
+    name: docker
+    state: present
+    version: '{{ docker_dockerpy_version | default(omit) }}'
+
+- name: configure docker daemon.json
+  template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    mode: 0400
+    owner: root
+    group: root
+  notify:
+    - restart docker

@@ -1,21 +1,4 @@
-- name: check whether docker exists
-  shell: command -v docker
-  ignore_errors: true
-  register: result
-  changed_when: "False"
+---
 
 - import_tasks: install.yml
-
-- name: ensure "docker" group present
-  group:
-    name: docker
-    state: present
-    system: true
-
-- import_tasks: user.yml
-
-- name: start docker
-  service:
-    name: docker
-    state: started
-    enabled: true
+- import_tasks: configure.yml
