@@ -2,8 +2,8 @@
 dependencies: []
 
 galaxy_info:
-  author: anmolnagpal
-  description: Docker for Linux.
+  author: clouddrove
+  description: This ansible role installs docker at Debian.
   company: "CloudDrove, LLC"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
