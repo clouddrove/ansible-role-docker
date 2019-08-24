@@ -18,4 +18,5 @@ jobs:
          python3 -m venv .venv
          source .venv/bin/activate
          pip install -U ansible docker setuptools pip 'molecule'
+         update-alternatives --remove python /usr/bin/python2
          molecule test

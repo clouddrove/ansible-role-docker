@@ -12,6 +12,14 @@
   script: /tmp/get_docker.sh
   changed_when: false
 
+- name: ensure pip is present
+  apt:
+    pkg: python-pip
+    state: present
+    update_cache: true
+    cache_valid_time: 5400
+  changed_when: false
+
 - name: install docker
   pip:
     name: docker
