@@ -20,5 +20,6 @@ jobs:
          pip install -U ansible docker setuptools pip 'molecule'
          update-alternatives --remove python /usr/bin/python2
          sudo apt-get install -y python3-apt
-         sudo apt-get install -y python-apt
-         molecule test
+         sudo apt-get install python
+         sudo apt-get install python3
+           molecule test
