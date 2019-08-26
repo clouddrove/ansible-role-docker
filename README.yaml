@@ -59,7 +59,7 @@ usage: |-
 # Variables use in the project
 variables: |-
   ```yaml
-      docker_users: []
+      docker_users: ['docker']
   ```
 
 # How to install project
