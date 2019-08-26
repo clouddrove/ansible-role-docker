@@ -53,7 +53,6 @@ usage: |-
   ```yaml
   - hosts: localhost
     remote_user: root
-    become: true
     roles:
       - clouddrove.ansible_role_docker
   ```
