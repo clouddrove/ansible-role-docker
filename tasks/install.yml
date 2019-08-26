@@ -1,0 +1,23 @@
+---
+
+- name: download the latest get_docker.sh
+  get_url:
+    url: https://get.docker.com/
+    dest: /tmp/get_docker.sh
+    mode: 0755
+  register: result_change
+  changed_when: false
+
+- name: run the script
+  command: /tmp/get_docker.sh
+  changed_when: false
+
+- name: configure docker daemon.json
+  template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    mode: 0400
+    owner: root
+    group: root
+  notify:
+    - restart docker

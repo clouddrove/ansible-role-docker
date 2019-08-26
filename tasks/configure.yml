@@ -1,0 +1,21 @@
+---
+- name: ensure docker config folder is present
+  changed_when: false
+  file:
+    path: /etc/docker
+    mode: 0644
+    state: directory
+
+- name: ensure docker group present
+  group:
+    name: docker
+    state: present
+    system: true
+
+- name: ensure docker user present
+  user:
+    append: true
+    groups: docker
+    state: present
+    name: '{{ item }}'
+  with_items: '{{ docker_users or [] }}'
