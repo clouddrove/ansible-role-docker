@@ -83,7 +83,6 @@ Followiing things includes in this role:
 ```yaml
 - hosts: localhost
   remote_user: root
-  become: true
   roles:
     - clouddrove.ansible_role_docker
 ```
@@ -92,7 +91,7 @@ Followiing things includes in this role:
 ## Variables
 
 ```yaml
-    docker_users: []
+    docker_users: ['docker']
 ```
 
 
