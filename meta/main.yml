@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: clouddrove
-  description: TThis ansible role install docker at Debian and Centos.
+  description: This ansible role install docker at Debian and Centos.
   company: "CloudDrove, LLC"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
