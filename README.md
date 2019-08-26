@@ -95,7 +95,6 @@ Followiing things includes in this role:
     docker_users: ['docker']
     docker_compose_install: true
     docker_compose_version: "1.21.2"
-    docker_compose_path: /usr/local/bin/docker-compose
 ```
 
 
