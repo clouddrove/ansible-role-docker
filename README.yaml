@@ -43,10 +43,11 @@ prerequesties:
 # What Includes to display
 what_includes:
   - name: "docker"
+  - name: "docker-compose"
 
 #  description of this project
 description: |-
-  This ansible role install docker at Debian and Centos.
+  This ansible role install docker on linux.
 
 # How to use this project
 usage: |-
@@ -60,6 +61,9 @@ usage: |-
 variables: |-
   ```yaml
       docker_users: ['docker']
+      docker_compose_install: true
+      docker_compose_version: "1.21.2"
+      docker_compose_path: /usr/local/bin/docker-compose
   ```
 
 # How to install project

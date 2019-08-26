@@ -2,3 +2,8 @@
 
 # A list of users who will be added to the docker group.
 docker_users: ['docker']
+
+# compose
+docker_compose_install: true
+docker_compose_version: "1.21.2"
+docker_compose_path: /usr/local/bin/docker-compose
