@@ -1,4 +1,10 @@
 ---
+- name: ensure docker config folder is present
+  changed_when: false
+  file:
+    path: /etc/docker
+    mode: 0644
+    state: directory
 
 - name: ensure docker group present
   group:
