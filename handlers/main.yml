@@ -18,3 +18,21 @@
     name: docker
     state: reloaded
     enabled: true
+
+- name: restart docker-compose
+  service:
+    name: docker-compose
+    state: restarted
+    enabled: true
+
+- name: start docker-compose
+  service:
+    name: docker-compose
+    state: started
+    enabled: true
+
+- name: reload docker-compose
+  service:
+    name: docker-compose
+    state: reloaded
+    enabled: true

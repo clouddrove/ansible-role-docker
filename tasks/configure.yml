@@ -1,4 +1,5 @@
 ---
+
 - name: ensure docker config folder is present
   changed_when: false
   file:

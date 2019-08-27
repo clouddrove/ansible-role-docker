@@ -1,0 +1,53 @@
+---
+
+- name: Check current docker-compose version.
+  command: docker-compose --version
+  register: docker_compose_current_version
+  changed_when: false
+  failed_when: false
+
+- name: Delete existing docker-compose version if it's different.
+  file:
+    path: "/usr/local/bin/docker-compose"
+    state: absent
+  when: >
+    docker_compose_current_version.stdout is defined
+    and docker_compose_version not in docker_compose_current_version.stdout
+
+- name: ensure dependencies are installed on debian
+  apt:
+    pkg: ['python-setuptools',
+          'python-pip']
+    state: present
+    update_cache: true
+    cache_valid_time: 5400
+  changed_when: false
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+
+- name: ensure dependencies are installed on centos/redhat
+  yum:
+    pkg: [
+      'epel-release',
+      'python-setuptools'
+    ]
+    state: present
+  changed_when: false
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: ensure pip are installed on centos/redhat
+  yum:
+    pkg: python-pip
+    state: present
+  changed_when: false
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+
+- name: install docker compose
+  pip:
+    name: docker-compose
+    state: present
+    version: '{{ docker_compose_version | default(omit) }}'
+  changed_when: false
+  notify:
+    - restart docker-compose

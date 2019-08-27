@@ -8,7 +8,7 @@
 </h1>
 
 <p align="center" style="font-size: 1.2rem;">
-    This ansible role install docker at Debian and Centos.
+    This ansible role install docker on linux.
      </p>
 
 <p align="center">
@@ -68,6 +68,7 @@ This module has a few dependencies:
 
 Followiing things includes in this role:
 - docker
+- docker-compose
 
 
 
@@ -92,6 +93,8 @@ Followiing things includes in this role:
 
 ```yaml
     docker_users: ['docker']
+    docker_compose_install: true
+    docker_compose_version: "1.21.2"
 ```
 
 
