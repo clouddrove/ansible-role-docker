@@ -17,7 +17,7 @@
 - name: ensure dependencies are installed on debian
   apt:
     pkg: ['python-setuptools',
-          'python-pip']
+          'python3-pip']
     state: present
     update_cache: true
     cache_valid_time: 5400
@@ -46,6 +46,7 @@
 - name: install docker compose
   pip:
     name: docker-compose
+    executable: /usr/bin/pip3
     state: present
     version: '{{ docker_compose_version | default(omit) }}'
   changed_when: false
