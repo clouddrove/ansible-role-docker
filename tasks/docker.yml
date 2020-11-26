@@ -1,10 +1,4 @@
 ---
-- name: Installing Docker Prerequisite packages on CentOS
-  yum:
-    name: ['yum-utils', 'device-mapper-persistent-data', 'lvm2']
-    state: latest
-  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
-
 - name: Installing Docker latest version on Amazon linux
   yum:
     name: "docker"
@@ -37,27 +31,11 @@
     - restart docker
   when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
-- name:  Starting and Enabling Docker service on CentOS
+- name:  Starting and Enabling Docker service 
   service:
     name: docker
     state: started
     enabled: yes
-  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
-
-- name: Enable the Docker daemon in systemd on CentOS
-  systemd:
-    name: docker
-    enabled: yes
-    masked: no
-  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
-
-- name: Start the Docker daemon on CentOS
-  systemd:
-    name: docker
-    state: started
-    masked: no
-  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
-
 
 
 

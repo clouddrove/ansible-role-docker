@@ -1,5 +1,4 @@
 ---
-
 - name: Check current docker-compose version.
   command: docker-compose --version
   register: docker_compose_current_version
@@ -24,7 +23,6 @@
   changed_when: false
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-
 - name: ensure dependencies are installed on centos/redhat
   yum:
     pkg: [
@@ -42,7 +40,6 @@
   changed_when: false
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-
 - name: install docker compose
   pip:
     name: docker-compose
@@ -53,7 +50,6 @@
   notify:
     - restart docker-compose
   when: ansible_facts['distribution'] == "Ubuntu"
-
 
 - name: install curl on centos
   yum:
