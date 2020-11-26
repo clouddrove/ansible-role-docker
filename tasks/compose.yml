@@ -52,3 +52,37 @@
   changed_when: false
   notify:
     - restart docker-compose
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+
+- name: install curl on centos
+  yum:
+    name: curl
+    state: present
+  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+
+- name: Check if Docker Compose is installed on centos or amazon
+  command: docker-compose --version
+  register: docker_compose_check
+  ignore_errors: yes
+  when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7") or ansible_facts['distribution'] == "Amazon"
+
+- name: Download and install Docker Compose on centos
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
+    dest: /usr/bin/docker-compose
+    mode: 0755
+  when:
+    - docker_compose_check.msg is defined
+    - docker_compose_check.msg.find('No such file or directory') != -1
+    - (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7") 
+
+- name: Download and install Docker Compose on Amazon linux
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
+    dest: /usr/bin/docker-compose
+    mode: 0755
+  when:
+    - docker_compose_check.msg is defined
+    - docker_compose_check.msg.find('No such file or directory') != -1
+    - ansible_facts['distribution'] == "Amazon"
