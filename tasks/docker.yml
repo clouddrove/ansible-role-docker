@@ -5,7 +5,6 @@
     state: present
   when: ansible_facts['distribution'] == "Amazon"
 
-
 - name: download the latest get_docker.sh
   get_url:
     url: https://get.docker.com/
@@ -29,7 +28,6 @@
     group: root
   notify:
     - restart docker
-  when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name:  Starting and Enabling Docker service 
   service:
