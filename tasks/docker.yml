@@ -29,12 +29,8 @@
   notify:
     - restart docker
 
-- name:  Starting and Enabling Docker service 
+- name: Starting and Enabling Docker service
   service:
     name: docker
     state: started
     enabled: yes
-
-
-
- 

@@ -71,7 +71,7 @@
   when:
     - docker_compose_check.msg is defined
     - docker_compose_check.msg.find('No such file or directory') != -1
-    - (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7") 
+    - (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name: Download and install Docker Compose on Amazon linux
   get_url:
