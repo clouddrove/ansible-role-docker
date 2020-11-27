@@ -1,8 +1,6 @@
 ---
 - name: Installing Docker latest version on Amazon linux
-  yum:
-    name: "docker"
-    state: present
+  command: amazon-linux-extras install docker
   when: ansible_facts['distribution'] == "Amazon"
 
 - name: download the latest get_docker.sh
