@@ -1,7 +1,6 @@
 ---
 - name: Converge
   hosts: all
-
   vars:
     nginx_use_ppa: true
     nginx_remove_default_vhost: true
