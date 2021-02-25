@@ -3,29 +3,43 @@ dependencies: []
 
 galaxy_info:
   author: Anmol Nagpal
-  description: This ansible role install docker at Debian and Centos.
+  description: This ansible role install common packages for Debian.
   company: "CloudDrove Inc."
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
   platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+        - 8
     - name: Debian
       versions:
-        - jessie
-        - stretch
+        - all
     - name: Ubuntu
       versions:
         - trusty
         - xenial
-        - bionic
-    - name: EL
+        - focal
+    - name: Archlinux
       versions:
-        - 7
+        - all
+    - name: FreeBSD
+      versions:
+        - 10.3
+        - 10.2
+        - 10.1
+        - 10.0
+        - 9.3
+    - name: OpenBSD
+      versions:
+        - 5.9
+        - 6.0
   galaxy_tags:
-    - system
-    - containers
-    - docker
-    - orchestration
     - server
+    - common
     - ubuntu
-    - centos
-    - compose
+    - amazone
+    - linux
+    - apt
+    - zsh

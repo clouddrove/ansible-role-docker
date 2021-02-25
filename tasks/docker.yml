@@ -1,4 +1,7 @@
 ---
+- name: Installing Docker latest version on Amazon linux
+  command: amazon-linux-extras install docker
+  when: ansible_facts['distribution'] == "Amazon"
 
 - name: download the latest get_docker.sh
   get_url:
@@ -7,10 +10,12 @@
     mode: 0755
   register: result_change
   changed_when: false
+  when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name: run the script
   command: /tmp/get_docker.sh
   changed_when: false
+  when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name: configure docker daemon.json
   template:
@@ -21,3 +26,9 @@
     group: root
   notify:
     - restart docker
+
+- name: Starting and Enabling Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
