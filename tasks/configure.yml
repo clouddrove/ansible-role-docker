@@ -1,20 +1,20 @@
 ---
 
-- name: ensure docker config folder is present
+- name: Ensure docker config folder is present
   changed_when: false
-  file:
+  ansible.builtin.file:
     path: /etc/docker
     mode: 0644
     state: directory
 
-- name: ensure docker group present
-  group:
-    name: docker
+- name: Ensure docker group present
+  ansible.builtin.group:
+    name: Docker
     state: present
     system: true
 
-- name: ensure docker user present
-  user:
+- name: Ensure docker user present
+  ansible.builtin.user:
     append: true
     groups: docker
     state: present
