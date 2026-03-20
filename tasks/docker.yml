@@ -1,10 +1,11 @@
 ---
 - name: Installing Docker latest version on Amazon linux
-  command: amazon-linux-extras install docker
+  ansible.builtin.command:
+    cmd: amazon-linux-extras install docker
   when: ansible_facts['distribution'] == "Amazon"
 
-- name: download the latest get_docker.sh
-  get_url:
+- name: Download the latest get_docker.sh
+  ansible.builtin.get_url:
     url: https://get.docker.com/
     dest: /tmp/get_docker.sh
     mode: 0755
@@ -12,13 +13,14 @@
   changed_when: false
   when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
-- name: run the script
-  command: /tmp/get_docker.sh
+- name: Run the script
+  ansible.builtin.command:
+    cmd: /tmp/get_docker.sh
   changed_when: false
   when: ansible_facts['distribution'] == "Ubuntu" or (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
-- name: configure docker daemon.json
-  template:
+- name: Configure docker daemon.json
+  ansible.builtin.template:
     src: daemon.json
     dest: /etc/docker/daemon.json
     mode: 0400
@@ -28,7 +30,7 @@
     - restart docker
 
 - name: Starting and Enabling Docker service
-  service:
-    name: docker
+  ansible.builtin.service:
+    name: Docker
     state: started
     enabled: yes

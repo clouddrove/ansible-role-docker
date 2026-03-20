@@ -1,20 +1,21 @@
 ---
 - name: Check current docker-compose version.
-  command: docker-compose --version
+  ansible.builtin.command:
+    cmd: docker-compose --version
   register: docker_compose_current_version
   changed_when: false
   failed_when: false
 
 - name: Delete existing docker-compose version if it's different.
-  file:
+  ansible.builtin.file:
     path: "/usr/local/bin/docker-compose"
     state: absent
   when: >
     docker_compose_current_version.stdout is defined
     and docker_compose_version not in docker_compose_current_version.stdout
 
-- name: ensure dependencies are installed on debian
-  apt:
+- name: Ensure dependencies are installed on debian
+  ansible.builtin.apt:
     pkg: ['python-setuptools',
           'python3-pip']
     state: present
@@ -23,8 +24,8 @@
   changed_when: false
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: ensure dependencies are installed on centos/redhat
-  yum:
+- name: Ensure dependencies are installed on centos/redhat
+  ansible.builtin.yum:
     pkg: [
       'epel-release',
       'python-setuptools'
@@ -33,16 +34,16 @@
   changed_when: false
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: ensure pip are installed on centos/redhat
-  yum:
+- name: Ensure pip are installed on centos/redhat
+  ansible.builtin.yum:
     pkg: python-pip
     state: present
   changed_when: false
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: install docker compose
-  pip:
-    name: docker-compose
+- name: Install docker compose
+  ansible.builtin.pip:
+    name: Docker-compose
     executable: /usr/bin/pip3
     state: present
     version: '{{ docker_compose_version | default(omit) }}'
@@ -51,20 +52,21 @@
     - restart docker-compose
   when: ansible_facts['distribution'] == "Ubuntu"
 
-- name: install curl on centos
-  yum:
-    name: curl
+- name: Install curl on centos
+  ansible.builtin.yum:
+    name: Curl
     state: present
   when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name: Check if Docker Compose is installed on centos or amazon
-  command: docker-compose --version
+  ansible.builtin.command:
+    cmd: docker-compose --version
   register: docker_compose_check
   ignore_errors: yes
   when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7") or ansible_facts['distribution'] == "Amazon"
 
 - name: Download and install Docker Compose on centos
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
     dest: /usr/bin/docker-compose
     mode: 0755
@@ -74,7 +76,7 @@
     - (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
 
 - name: Download and install Docker Compose on Amazon linux
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
     dest: /usr/bin/docker-compose
     mode: 0755
